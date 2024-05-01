@@ -1,4 +1,6 @@
 spring:
+    application:
+        name: flight-server
     jpa:
         show-sql: true
         hibernate:
@@ -8,3 +10,11 @@ spring:
         username: root
         password: 38326042zla
         driver-class-name: com.mysql.cj.jdbc.Driver
+server:
+    port: 0
+eureka:
+    client:
+        serviceUrl:
+            defaultZone: http://localhost:8761/eureka
+    instance:
+        preferIpAddress: true

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import codoacodo.vuelosapi.exceptions.ResourceNotFoundException;
 import codoacodo.vuelosapi.models.Company;
 import codoacodo.vuelosapi.services.CompanyService;
 
@@ -39,8 +40,14 @@ public class CompanyController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public void deleteCompanyById(@PathVariable Long id) {
-        companyService.deleteCompanyById(id);
+    public String deleteCompanyById(@PathVariable Long id) {
+        try {
+            companyService.deleteCompanyById(id);
+            return "Compañía eliminada exitosamente";
+        } catch (ResourceNotFoundException e) {
+            e.printStackTrace();
+            return "La compañía con el id seleccionado no fue encontrada";
+        }
     }
 
     @PutMapping("/update") 

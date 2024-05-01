@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import codoacodo.vuelosapi.exceptions.ResourceNotFoundException;
 import codoacodo.vuelosapi.models.Company;
 import codoacodo.vuelosapi.repository.CompanyRepository;
 
@@ -28,7 +29,8 @@ public class CompanyService {
     }
 
     public void deleteCompanyById(Long id) {
-        companyRepository.deleteById(id);
+        Company company = companyRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("company", "id", id));
+        companyRepository.deleteById(company.getId());
     }
 
     public Optional<Company> updateCompany(Company company) {
